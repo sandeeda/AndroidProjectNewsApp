@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import org.n01472825.newsapplication.models.Article;
 import org.n01472825.newsapplication.models.CustomViewHolder;
+import org.n01472825.newsapplication.models.Source;
 
 import java.util.List;
 
@@ -31,6 +32,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
+        ////Comment next 5 lines later
+//        articles.get(position).setTitle("Dummy_Title");
+//        Source source = articles.get(position).getSource();
+//        source.setName("Dummy_Source");
+//        articles.get(position).setSource(source);
+//        articles.get(position).setUrlToImage(null);
+
         holder.getText_title().setText(articles.get(position).getTitle());
         holder.getText_source().setText(articles.get(position).getSource().getName());
 
