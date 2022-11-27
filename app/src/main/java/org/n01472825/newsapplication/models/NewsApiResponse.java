@@ -1,8 +1,9 @@
 package org.n01472825.newsapplication.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NewsApiResponse {
+public class NewsApiResponse implements Serializable {
 
     private String status;
     int totalResults;
