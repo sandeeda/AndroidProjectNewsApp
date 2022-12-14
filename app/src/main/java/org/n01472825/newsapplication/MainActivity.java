@@ -16,6 +16,8 @@ import android.widget.Toast;
 import org.n01472825.newsapplication.models.Article;
 import org.n01472825.newsapplication.models.NewsApiResponse;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SelectListener , View.OnClickListener{
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
     SearchView searchView;
 
     Button b1,b2,b3,b4,b5,b6,b7;
+    Button bc1,bc2,bc3,bc4,bc5,bc6,bc7;
+
+    String category = "general";        String country = "us";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,27 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
         b7 = findViewById(R.id.btn_7);
         b7.setOnClickListener(this);
 
+        bc1 = findViewById(R.id.btn_c1);
+        bc1.setOnClickListener(this);
+
+        bc2 = findViewById(R.id.btn_c2);
+        bc2.setOnClickListener(this);
+
+        bc3 = findViewById(R.id.btn_c3);
+        bc3.setOnClickListener(this);
+
+        bc4 = findViewById(R.id.btn_c4);
+        bc4.setOnClickListener(this);
+
+        bc5 = findViewById(R.id.btn_c5);
+        bc5.setOnClickListener(this);
+
+        bc6 = findViewById(R.id.btn_c6);
+        bc6.setOnClickListener(this);
+
+        bc7 = findViewById(R.id.btn_c7);
+        bc7.setOnClickListener(this);
+
 
         searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -65,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
                 dialog.setTitle("Fetching news articles for " + query);
                 dialog.show();
                 RequestManager manager = new RequestManager(MainActivity.this);
-                manager.getNewsHeadLines(listener, "general", query);
+                manager.getNewsHeadLines(listener, "general", "us", query);
                 return true;
             }
 
@@ -74,14 +101,14 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
                 //return false;
 
                 RequestManager manager = new RequestManager(MainActivity.this);
-                manager.getNewsHeadLines(listener, "general", newText);
+                manager.getNewsHeadLines(listener, "general", "us", newText);
                 return true;
             }
         });
 
 
         RequestManager manager = new RequestManager(this);
-        manager.getNewsHeadLines(listener, "general", null);
+        manager.getNewsHeadLines(listener, "general", "us", null);
     }
 
     private final OnFetchDataListener<NewsApiResponse> listener = new OnFetchDataListener<NewsApiResponse>() {
@@ -117,11 +144,35 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
     @Override
     public void onClick(View view) {
         Button button = (Button) view;
-        String category = button.getText().toString();
-        dialog.setTitle("Fetching new articles of "+ category);
+        List<String> categories = new ArrayList<>();
+
+        categories.add("business");
+        categories.add("entertainment");
+        categories.add("general");
+        categories.add("health");
+        categories.add("science");
+        categories.add("sports");
+        categories.add("technology");
+        if(categories.contains(button.getText().toString())){
+            category = button.getText().toString();
+        }
+
+        HashMap<String, String>  countries = new HashMap<>();
+        countries.put("USA", "us");
+        countries.put("Malaysia", "my");
+        countries.put("Canada", "ca");
+        countries.put("India", "in");
+        countries.put("Germany", "de");
+        countries.put("Brazil", "br");
+        countries.put("Iran","ir");
+        if(countries.containsKey(button.getText().toString())){
+            country = countries.get(button.getText().toString());
+        }
+
+        dialog.setTitle("Fetching new articles of "+ category + " from "+country);
         dialog.show();
         RequestManager manager = new RequestManager(this);
-        manager.getNewsHeadLines(listener, category, null);
+        manager.getNewsHeadLines(listener, category, country, null);
 
     }
 }
