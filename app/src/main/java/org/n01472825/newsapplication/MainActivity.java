@@ -92,23 +92,23 @@ public class MainActivity extends AppCompatActivity implements SelectListener , 
                 dialog.setTitle("Fetching news articles for " + query);
                 dialog.show();
                 RequestManager manager = new RequestManager(MainActivity.this);
-                manager.getNewsHeadLines(listener, "general", "us", query);
+                manager.getNewsHeadLines(listener, null, null, query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //return false;
+                return false;
 
-                RequestManager manager = new RequestManager(MainActivity.this);
-                manager.getNewsHeadLines(listener, "general", "us", newText);
-                return true;
+//                RequestManager manager = new RequestManager(MainActivity.this);
+//                manager.getNewsHeadLines(listener, "general", country, newText);
+//                return true;
             }
         });
 
 
         RequestManager manager = new RequestManager(this);
-        manager.getNewsHeadLines(listener, "general", "us", null);
+        manager.getNewsHeadLines(listener, category, country, null);
     }
 
     private final OnFetchDataListener<NewsApiResponse> listener = new OnFetchDataListener<NewsApiResponse>() {

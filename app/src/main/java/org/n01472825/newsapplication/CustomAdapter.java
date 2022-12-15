@@ -27,20 +27,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         this.listener = listener;
     }
 
+/*    RecyclerView calls this method whenever it needs to create a new ViewHolder.
+    The method creates and initializes the ViewHolder and its associated View,
+    but does not fill in the view's contents—
+    the ViewHolder has not yet been bound to specific data.*/
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.headline_list_items, parent, false));
     }
 
+
+/*    RecyclerView calls this method to associate a ViewHolder with data.
+    The method fetches the appropriate data and
+    uses the data to fill in the view holder's layout.
+    For example, if the RecyclerView displays a list of names,
+    the method might find the appropriate name in the list
+    and fill in the view holder's TextView widget.*/
+
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        ////Comment next 5 lines later
-//        articles.get(position).setTitle("Dummy_Title");
-//        Source source = articles.get(position).getSource();
-//        source.setName("Dummy_Source");
-//        articles.get(position).setSource(source);
-//        articles.get(position).setUrlToImage(null);
 
         holder.getText_title().setText(articles.get(position).getTitle());
         holder.getText_source().setText(articles.get(position).getSource().getName());
